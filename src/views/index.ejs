@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="/style.css">
+    <!-- Include Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- SweetAlert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCCS2cAJeASqZsXee8zSB_CYBa0VU3b-AKVw&s" class="header-icon" alt="Student Icon" /> Student Management
+      </h1>
+    </header>
+    
+    <main>
+      <section class="form-section">
+        <h2>Add New Student</h2>
+        <form action="/add" method="POST">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="number" name="age" placeholder="Age" pattern="\d*" required />
+          <input type="text" name="grade" placeholder="Grade" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <button type="submit">Add Student</button>
+        </form>
+      </section>
+
+      <section class="student-list">
+        <h2>Student List</h2>
+        <ul>
+          <% students.forEach(student => { %>
+            <li>
+              <div class="student-info">
+                <span><%= student.name %> (<%= student.email %>) - <%= student.grade %></span>
+                <div class="action-buttons">
+                  <a href="#" class="btn update" onclick="openUpdateForm('<%= student._id %>', '<%= student.name %>', '<%= student.age %>', '<%= student.grade %>', '<%= student.email %>')">
+                    <i class="fas fa-edit-alt"></i> Update
+                  </a>                  
+                  <a href="/delete/<%= student._id %>" class="btn delete">
+                    <i class="fas fa-trash-alt"></i> Delete
+                  </a>
+                </div>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      </section>
+      <div id="updateModal" style="display:none;">
+        <form id="updateForm">
+          <input type="text" name="name" id="name" required />
+          <input type="number" name="age" id="age" required />
+          <input type="text" name="grade" id="grade" required />
+          <input type="email" name="email" id="email" required />
+          <button type="submit">Update Student</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script>
+    document.querySelector('form').onsubmit = function(event) {
+  event.preventDefault();  // Prevent default form submission
+  
+  const formData = {
+    name: document.querySelector('[name="name"]').value,
+    age: document.querySelector('[name="age"]').value,
+    grade: document.querySelector('[name="grade"]').value,
+    email: document.querySelector('[name="email"]').value
+  };
+  
+  fetch('/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      Swal.fire({
+        title: 'Success!',
+        text: data.message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        window.location.reload();  // Reload to show the newly added student in the list
+      });
+    } else {
+      Swal.fire({
+        title: 'Error!',
+        text: data.message || 'There was an issue adding the student.',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    Swal.fire({
+      title: 'Error!',
+      text: 'An unexpected error occurred.',
+      icon: 'error',
+      confirmButtonText: 'Try Again'
+    });
+  });
+};
+
+
+
+    // for updating
+    function openUpdateForm(id, name, age, grade, email) {
+  document.getElementById('name').value = name;
+  document.getElementById('age').value = age;
+  document.getElementById('grade').value = grade;
+  document.getElementById('email').value = email;
+  document.getElementById('updateModal').style.display = 'block';  // Show the modal form
+  
+  // Set the form's submit handler
+  document.getElementById('updateForm').onsubmit = function(event) {
+    event.preventDefault();  // Prevent default form submission
+    
+    const formData = {
+      name: document.getElementById('name').value,
+      age: document.getElementById('age').value,
+      grade: document.getElementById('grade').value,
+      email: document.getElementById('email').value
+    };
+    console.log('Sending data:', formData);
+    
+    // Send the PUT request using fetch
+    fetch('/update/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Show success with SweetAlert
+        Swal.fire({
+          title: 'Success!',
+          text: 'Student updated successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location.reload();  // Reload the page to see the updated data
+        });
+      } else {
+        // Show error with SweetAlert
+        Swal.fire({
+          title: 'Error!',
+          text: data.message || 'There was an issue updating the student.',
+          icon: 'error',
+          confirmButtonText: 'Try Again'
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Show error with SweetAlert in case of network or server error
+      Swal.fire({
+        title: 'Error!',
+        text: 'An unexpected error occurred.',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+      });
+    });
+  };
+}
+  </script>
+  
+  
+</body>
+</html>

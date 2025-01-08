@@ -1,0 +1,219 @@
+/* General Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for the content */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+/* Header Styling */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  color: #444;
+  font-size: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+
+/* Form Section Styling */
+.form-section {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
+}
+
+h2 {
+  color: #444;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+input, button {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+input:focus, button:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Student List Section Styling */
+.student-list {
+  margin-top: 40px;
+}
+
+.student-list ul {
+  padding: 0;
+  list-style: none;
+}
+
+.student-list li {
+  background: #fff;
+  padding: 18px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.student-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.student-list .student-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.student-list .student-info span {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.update {
+  background-color: #007bff;
+}
+
+.update:hover {
+  background-color: #0056b3;
+}
+
+.delete {
+  background-color: #dc3545;
+}
+
+.delete:hover {
+  background-color: #c82333;
+}
+
+i {
+  margin-right: 5px;
+}
+
+/* Modal Styling */
+#updateModal {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+#updateModal form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Set fixed width for the form */
+  max-width: 90%;
+  margin: 0 auto; /* Ensure it's centered horizontally */
+}
+
+#updateModal input {
+  margin-bottom: 12px;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none; /* Standard syntax */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .header-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .form-section, .student-list {
+    margin-top: 20px;
+  }
+
+  .student-list li {
+    padding: 14px;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+}
