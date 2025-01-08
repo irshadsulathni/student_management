@@ -182,13 +182,6 @@ i {
   margin-bottom: 12px;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
-  -webkit-appearance: none; /* Safari and Chrome */
-  appearance: none; /* Standard syntax */
-}
-
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
@@ -216,4 +209,18 @@ input[type="number"] {
     font-size: 0.9rem;
     padding: 8px 10px;
   }
+}
+
+
+/* Hide the increment/decrement buttons for number input in most browsers (Webkit) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;  /* Hide spinner in Firefox */
+  appearance: textfield;       /* For future compatibility */
 }
