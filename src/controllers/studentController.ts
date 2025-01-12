@@ -10,6 +10,7 @@ const isValidEmail = (email: string) => {
 export const getStudents = async (req: Request, res: Response) => {
   try {
     const students = await Student.find();
+    console.log(students);
     res.render('index', { students });
   } catch (error) {
     console.error('Error fetching students:', error);
