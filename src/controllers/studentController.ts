@@ -7,6 +7,7 @@ const isValidEmail = (email: string) => {
   return regex.test(email);
 };
 
+
 export const getStudents = async (req: Request, res: Response) => {
   try {
     const students = await Student.find();
@@ -44,7 +45,7 @@ export const addStudent = async (req: Request, res: Response) => {
     const student = new Student({ name, age, grade, email });
     await student.save();
 
-    return res.json({ success: true, message: 'Student added successfully' });  // Send success message
+    return res.json({ success: true, message: 'Student added successfully' });
   } catch (error) {
     console.error('Error adding student:', error);
     res.status(500).send('Server Error');
