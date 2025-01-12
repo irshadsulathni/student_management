@@ -36,9 +36,6 @@ export const addStudent = async (req: Request, res: Response) => {
     if (isNaN(age) || Number(age) <= 4) {
       return res.status(400).json({ success: false, message: 'Invalid age.' });
     }
-
-    
-    
     const validGrades = ['A+', 'A', 'B+', 'B', 'C+', 'C'];
     if (!validGrades.includes(grade)) {
       return res.status(400).json({ success: false, message: 'Invalid grade.' });
